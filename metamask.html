@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            background-image: url(https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/MetaMask_Fox.svg/1200px-MetaMask_Fox.svg.png);
+            background-repeat: no-repeat;
+            background-color: white;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 7mm;
+        }
+        .rightSide{
+            float:right;
+            padding-top: 4cm;
+            padding-right: 4cm;
+        }
+        #enable{
+            color: rgb(10, 92, 92);
+            padding-right: 2cm;
+            padding-bottom: 2cm;
+        }
+        #check{
+            color: rgb(10, 92, 92);
+        }
+
+        #check:hover, #enable:hover{
+            text-decoration: underline;
+            color:rgb(12, 36, 36)
+        }
+        #pre{
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 5mm;
+        }
+        img{
+            height: 3cm;
+            padding-bottom: 0%;
+        }
+        img:hover{
+            background-color: rgb(235, 235, 235);
+        }
+        .function{
+            color: rgb(228, 240, 240);
+            background-color: rgb(169, 189, 182);
+            font-size: 5mm;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="rightSide">
+        <img onclick="enable()" src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/MetaMask_Fox.svg/1200px-MetaMask_Fox.svg.png">
+        <br>
+        <p id="enable" onclick="enable()" >ENABLE metamask</p>
+        <a id="check" onclick="check()">CHECK</a>
+        <a>weather you have metamask as extension</a>
+        <br>
+        <p class="function" id="checkResult"></p>
+        <br>
+        <pre id="pre">
+Make sure your metamask is connected to
+hardhat network.
+you must have metamask extesnion installed 
+to use furter features to get the extension
+click on the folloing link
+        </pre>
+        <br>
+        <p>Your current connected account is:</p>
+        <p id="account" class="function"></p>
+    </div>
+    <script src="https://unpkg.com/web3@latest/dist/web3.min.js"></script>
+
+    <script>
+        //connecting to hardhat
+        var web3 = new Web3('http://127.0.0.1:8545/');
+        //adding check and enable function
+
+        function check(){
+            if( ethereum.isMetaMask == true){
+                document.getElementById('checkResult').innerText="Metamask is installed"
+            }
+            else{
+                document.getElementById('checkResult').innerText="Metamask is not installed"
+
+            }
+        }
+
+        function enable() {
+            ethereum.request({ method: 'eth_requestAccounts' });
+            var addr = ethereum.selectedAddress
+            document.getElementById('account').innerText= addr
+            console.log(addr)
+        };
+
+
+    </script>
+</body>
+</html>

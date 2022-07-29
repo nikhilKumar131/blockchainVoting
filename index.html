@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            background-color: white;
+            text-align: center;
+        }
+        .header{
+            background-color: rgb(241, 243, 243);
+            margin-top: -1.5mm;
+            margin-left: -1.5mm;
+            margin-right: -1.5mm;
+            padding-bottom: 2mm;
+
+        }
+        button{
+			height: 1cm;
+			background-color: aliceblue;
+            bor
+		}
+        #admin{
+            float: right;
+            margin-right: 1cm;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <button onclick="enablewallet()">enable Meta</button>
+        <!-- <button id="voter" onclick="voter()">voter</button> -->
+        <button id="voting" onclick="voting()">voting</button>
+        <button id="admin" onclick="admin()">admin</button>
+    </div>
+
+    <br>
+    <p>please make sure you have metamask extenstion installed on your brower</p>
+    <p>after you have  enabled metamask. click on the admin page to check weather your account is verified to vote or not. On the admin put address to ckeck and click check button</p>
+    <p>other functions of admin are usable from admin address only</p>
+    <p>now go to voting and click on the one you want to vote</p>
+    <p>refresh if the status does not update</p>
+
+    <script>
+        function voter() {
+            location.href = "http://localhost:3000/voter"
+        };
+
+        function voting() {
+            location.href = "http://localhost:3000/voting"
+        };
+
+        function admin() {
+            location.href = "http://localhost:3000/admin"
+        };
+
+    </script>
+
+
+
+    <script>
+        if(typeof window.ethereum !== 'undefined'){
+            console.log('metamask is installed')
+        }
+
+        if( ethereum.isMetaMask == true){
+            console.log('wallet is meta mask')
+        }
+
+        function enablewallet() {
+            // ethereum.request({ method: 'eth_requestAccounts' });
+            location.href="http://localhost:3000/metamask";
+        };
+
+        console.log(ethereum.selectedAddress);
+</script>
+
+</body>
+</html>

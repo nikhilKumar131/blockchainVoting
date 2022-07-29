@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+	<style>
+        body{
+            background-color: white;
+            text-align: center;
+        }
+        .header{
+            background-color: rgb(241, 243, 243);
+            margin-top: -3.5mm;
+            margin-left: -1.5mm;
+            margin-right: -1.5mm;
+            padding-bottom: 2mm;
+			padding-top: 2mm
+
+        }
+		button{
+			height: 1cm;
+			background-color: aliceblue;
+		}
+	</style>
+</head>
+<body>
+    <p id="connectedAcc">your eth account is:</p>
+    <p class="header">select the one you want to vote</p>
+    <button onclick="one()">one</button>
+    <button onclick="two()">two</button>
+    <p id="voted">you voted for:</p>
+
+    <script src="https://unpkg.com/web3@latest/dist/web3.min.js"></script>
+    <script>
+        //naming contract
+        var provider = 'http://127.0.0.1:8545/';
+        var web3 = new Web3(provider);
+
+        var contractaddr = "0x5fbdb2315678afecb367f032d93f642f64180aa3" 
+        var contractabi = [
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "_addr",
+				"type": "address"
+			}
+		],
+		"name": "verifyVoter",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "_addr",
+				"type": "address"
+			}
+		],
+		"name": "vote1",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "_addr",
+				"type": "address"
+			}
+		],
+		"name": "vote2",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "one",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "two",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"name": "verified",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"name": "voted",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	}
+]
+    mycontract = new web3.eth.Contract(contractabi, contractaddr);
+    </script>
+
+    <script>
+        console.log(ethereum.selectedAddress);
+        mycontract.methods.one().call().then(console.log)
+        mycontract.methods.two().call().then(console.log)
+
+        var seladdr = ethereum.selectedAddress;
+        document.getElementById("connectedAcc").innerText= seladdr;
+
+    </script>
+
+    <script>
+        //definging the functions and changing element
+        var addr = ethereum.selectedAddress;
+        function one() {
+            mycontract.methods.vote1(addr).send({from: addr})
+            document.getElementById('voted').innerText="voted: one";
+        }
+        function two() {
+            mycontract.methods.vote2(addr).send({from: addr})
+            document.getElementById('voted').innerText="voted: two";
+        }
+
+    </script>
+</body>
+</html>
